@@ -1,11 +1,11 @@
 import React, { createContext, useState, useContext } from "react"
 
-const TodosContext = createContext()
+const TodosContext = createContext({ state: {}, onChange: (newState: any) => {} })
 
-export const TodosProvider = ({ children }) => {
+export const TodosProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [state, setState] = useState({})
 
-  const onChange = toBeUpdatedStateProporties => {
+  const onChange = (toBeUpdatedStateProporties: any) => {
     setState({ ...state, ...toBeUpdatedStateProporties })
   }
 

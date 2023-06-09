@@ -8,36 +8,23 @@ import Checkbox from "@mui/material/Checkbox"
 import IconButton from "@mui/material/IconButton"
 import ClearIcon from "@mui/icons-material/Clear"
 
-// import { useQueryGetTodos } from "../../../../graphql/todos/useQueryGetTodos"
-// import { useMutationMarkTodoCompleted } from "../../../../graphql/todos/useMutationMarkTodoCompleted"
-// import { useMutationMarkTodoUncompleted } from "../../../../graphql/todos/useMutationMarkTodoUncompleted"
-// import { useMutationDeleteTodo } from "../../../../graphql/todos/useMutationDeleteTodo"
-// import { useTodos } from "../context/TodosContext"
+import { useQueryGetTodos } from "../../../../graphql/todos/useQueryGetTodos"
+import { useMutationMarkTodoCompleted } from "../../../../graphql/todos/useMutationMarkTodoCompleted"
+import { useMutationMarkTodoUncompleted } from "../../../../graphql/todos/useMutationMarkTodoUncompleted"
+import { useMutationDeleteTodo } from "../../../../graphql/todos/useMutationDeleteTodo"
+import { useTodos } from "../context/TodosContext"
 // import { useAuth } from "../../auth/context/AuthContext"
 
 export const TodoList = () => {
-  const todos = [
-    { id: 1, title: "my todo", isCompleted: true },
-    { id: 2, title: "my todo -2", isCompleted: false },
-    { id: 3, title: "my todo -3", isCompleted: true },
-  ]
-  const loading = false
-  const error = false
-  const refetch = () => {}
   const user = true
-  const showing = "all"
-
-  const markTodoCompleted = (value: any) => {}
-  const markTodoUncompleted = (value: any) => {}
-  const deleteTodo = (value: any) => {}
 
   // const { user } = useAuth()
-  // const { todos, loading, error, refetch } = useQueryGetTodos()
-  // const { markTodoCompleted } = useMutationMarkTodoCompleted()
-  // const { markTodoUncompleted } = useMutationMarkTodoUncompleted()
-  // const { deleteTodo } = useMutationDeleteTodo()
-  // const { onChange, state } = useTodos()
-  // const { showing } = state
+  const { todos, loading, error, refetch } = useQueryGetTodos()
+  const { markTodoCompleted } = useMutationMarkTodoCompleted()
+  const { markTodoUncompleted } = useMutationMarkTodoUncompleted()
+  const { deleteTodo } = useMutationDeleteTodo()
+  const { onChange, state } = useTodos()
+  const { showing } = state
   const showingTodos = todos && showing === "completed" ? todos.filter(x => x.isCompleted) : showing === "incompleted" ? todos.filter(x => !x.isCompleted) : todos
 
   const handleMarkChange = (event: any) => {

@@ -3,8 +3,7 @@ import Box from "@mui/material/Box"
 import BottomNavigation from "@mui/material/BottomNavigation"
 import BottomNavigationAction from "@mui/material/BottomNavigationAction"
 
-// import { useTodos } from "../context/TodosContext"
-const useTodos = () => ({ onChange: (state: any) => {} })
+import { useTodos } from "../context/TodosContext"
 
 export const Footer = () => {
   const [value, setValue] = useState("all")

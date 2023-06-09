@@ -1,10 +1,10 @@
 import { SetStateAction, useState } from "react"
 import { TextField, Box } from "@mui/material"
 
-// import createTodo apollo hook later
+import { useMutationCreateTodo } from "../../../../graphql/todos/useMutationCreateTodo"
 
 export const CreateTodo = () => {
-  const createTodo = (value: string) => {}
+  const { createTodo } = useMutationCreateTodo()
   const [value, setValue] = useState("")
 
   const onChange = (event: { target: { value: SetStateAction<string> } }) => setValue(event.target.value)
