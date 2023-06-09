@@ -1,20 +1,17 @@
-import React from "react"
 import { AppBar, Box, Toolbar, Typography, Button } from "@mui/material"
-// import { Link, navigate } from "gatsby";
+import styled from "@emotion/styled"
 
 import Link from "next/link"
 import { useRouter } from "next/router"
 
-// import { useAuth } from "../subjectRelated/auth/context/AuthContext";
+import { useAuth } from "../subjectRelated/auth/context/AuthContext"
 
 export const Navbar = () => {
-  //   const { user, logout } = useAuth();
-  const user = false //"onur"
+  const { user, logout } = useAuth()
   const { push } = useRouter()
 
   const onLogout = () => {
-    // logout();
-    // navigate("/");
+    logout()
     push("/register")
   }
 
@@ -39,6 +36,9 @@ export const Navbar = () => {
               </Button>
             ) : (
               <>
+                {/* <Link href={`/login`} passHref>
+                  <StyledLink>Login</StyledLink>
+                </Link> */}
                 <Link href={`/login`}>Login</Link>
                 <Link href={`/register`}>Register</Link>
               </>
@@ -49,3 +49,9 @@ export const Navbar = () => {
     </Box>
   )
 }
+
+const StyledLink = styled.a`
+  color: white;
+  background: red;
+`
+// textDecoration: "none", color: "white", marginRight: "10px"
