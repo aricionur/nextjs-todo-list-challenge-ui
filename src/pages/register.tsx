@@ -1,5 +1,12 @@
-const Register = () => {
-  return "Register Page";
-};
+import MainLayout from "../components/layouts/MainLayout"
+import { Register } from "../components/subjectRelated/auth/components/Register"
 
-export default Register;
+const RegisterPage = () => {
+  return (
+    <MainLayout>
+      <Register />
+    </MainLayout>
+  )
+}
+
+export default RegisterPage
