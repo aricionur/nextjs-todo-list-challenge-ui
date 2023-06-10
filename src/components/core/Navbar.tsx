@@ -19,9 +19,20 @@ export const Navbar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h5" component="div">
+          {/* <Typography variant="h5" component="div">
             <Link href={`/`}>TodoList</Link>
-          </Typography>
+          </Typography> */}
+          <Button
+            style={{
+              textDecoration: "none",
+              color: "white",
+              marginRight: "10px",
+            }}
+            onClick={() => push("/")}
+          >
+            Todo List
+          </Button>
+
           <Box alignItems="right" sx={{ flexGrow: 1, textAlign: "right" }}>
             {user ? (
               <Button
@@ -36,11 +47,32 @@ export const Navbar = () => {
               </Button>
             ) : (
               <>
+                <Button
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    marginRight: "10px",
+                  }}
+                  onClick={() => push("/login")}
+                >
+                  Login
+                </Button>
+                <Button
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    marginRight: "10px",
+                  }}
+                  onClick={() => push("/register")}
+                >
+                  Register
+                </Button>
+
                 {/* <Link href={`/login`} passHref>
                   <StyledLink>Login</StyledLink>
                 </Link> */}
-                <Link href={`/login`}>Login</Link>
-                <Link href={`/register`}>Register</Link>
+                {/* <Link href={`/login`}>Login</Link> */}
+                {/* <Link href={`/register`}>Register</Link> */}
               </>
             )}
           </Box>
@@ -50,6 +82,9 @@ export const Navbar = () => {
   )
 }
 
+// styled components gives hydration error,
+// now using buttons
+// but later solve this hydration problem
 const StyledLink = styled.a`
   color: white;
   background: red;
