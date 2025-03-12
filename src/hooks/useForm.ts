@@ -1,13 +1,22 @@
-import { useState } from "react"
+import { useState, ChangeEvent, FormEvent } from "react"
 
-export const useForm = (callback, initialState = {}) => {
-  const [values, setValues] = useState(initialState)
+interface Props<T> {
+  (callback: (values: T) => void, initialState?: T): {
+    onChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    onSubmit: (event: FormEvent) => void
+    values: T
+  }
+}
 
-  const onChange = event => {
-    setValues({ ...values, [event.target.name]: event.target.value })
+export const useForm = <T extends Record<string, any>>(callback: (values: T) => void, initialState: T = {} as T) => {
+  const [values, setValues] = useState<T>(initialState)
+
+  const onChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target
+    setValues({ ...values, [name]: value })
   }
 
-  const onSubmit = event => {
+  const onSubmit = (event: FormEvent) => {
     event.preventDefault()
     callback(values)
   }

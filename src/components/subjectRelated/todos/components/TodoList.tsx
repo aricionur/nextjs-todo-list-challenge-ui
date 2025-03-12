@@ -36,10 +36,6 @@ export const TodoList = () => {
     deleteTodo(id)
   }
 
-  useEffect(() => {
-    refetch()
-  }, [user])
-
   return (
     <>
       {loading && <p>Loading...</p>}

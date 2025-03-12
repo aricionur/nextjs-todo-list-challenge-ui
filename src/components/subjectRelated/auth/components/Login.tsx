@@ -15,25 +15,27 @@ export const Login = () => {
   const { onChange, onSubmit } = useForm(loginUser, { email: "", password: "" })
 
   return (
-    <Container spacing={2} maxWidth="sm" sx={{ marginTop: 5 }}>
-      <Typography variant="h4" sx={{ color: "text.primary" }}>
-        Welcome Back!
-      </Typography>
-      <Typography variant="h5" sx={{ color: "text.disabled", marginBottom: 5 }}>
-        Log in to continue
-      </Typography>
-      <Stack spacing={2} paddingBottom={2}>
+    <Container maxWidth="sm" sx={{ marginTop: 5 }}>
+      <Stack spacing={2}>
+        <Typography variant="h4" sx={{ color: "text.primary" }}>
+          Welcome Back!
+        </Typography>
+        <Typography variant="h5" sx={{ color: "text.disabled", marginBottom: 5 }}>
+          Log in to continue
+        </Typography>
+
         <TextField label="Email" name="email" onChange={onChange} />
         <TextField label="Password" name="password" onChange={onChange} />
+
+        {errors.map((error: any) => (
+          <Alert key={error.message} severity="error" sx={{ marginBottom: 2 }}>
+            {error.message}
+          </Alert>
+        ))}
+        <Button variant="contained" onClick={onSubmit}>
+          Log In
+        </Button>
       </Stack>
-      {errors.map(error => (
-        <Alert severity="error" sx={{ marginBottom: 2 }}>
-          {error.message}
-        </Alert>
-      ))}
-      <Button variant="contained" onClick={onSubmit}>
-        Log In
-      </Button>
     </Container>
   )
 }

@@ -3,13 +3,13 @@ import Box from "@mui/material/Box"
 import BottomNavigation from "@mui/material/BottomNavigation"
 import BottomNavigationAction from "@mui/material/BottomNavigationAction"
 
-import { useTodos } from "../context/TodosContext"
+import { State, useTodos } from "../context/TodosContext"
 
 export const Footer = () => {
-  const [value, setValue] = useState("all")
+  const [value, setValue] = useState<State["showing"]>("all")
   const { onChange } = useTodos()
 
-  const handleChange = (event: any, newValue: string) => {
+  const handleChange = (event: any, newValue: State["showing"]) => {
     setValue(newValue)
     onChange({ showing: newValue })
   }

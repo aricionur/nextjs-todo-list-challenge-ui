@@ -1,8 +1,21 @@
-import React, { createContext, useState, useContext } from "react"
+import React, { createContext, useState, useContext, ReactNode, FC } from "react"
 
-const TodosContext = createContext({ state: {}, onChange: (newState: any) => {} })
+interface Props {
+  children: ReactNode
+}
 
-export const TodosProvider: React.FC<React.ReactNode> = ({ children }) => {
+export interface State {
+  showing?: "all" | "completed" | "incompleted"
+}
+
+interface Context {
+  state: State
+  onChange: (newState: State) => void
+}
+
+const TodosContext = createContext<Context>({ state: {}, onChange: (newState: any) => {} })
+
+export const TodosProvider: FC<Props> = ({ children }) => {
   const [state, setState] = useState({})
 
   const onChange = (toBeUpdatedStateProporties: any) => {

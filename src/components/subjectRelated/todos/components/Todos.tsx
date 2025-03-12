@@ -11,7 +11,7 @@ export const Todos = () => {
   return (
     <>
       <TodosProvider>
-        <Box xs={{ height: "100vh" }}>
+        <Box>
           <Box sx={{ width: 500, height: 500, boxShadow: 3, margin: "auto" }}>
             <Header />
             <CreateTodo />

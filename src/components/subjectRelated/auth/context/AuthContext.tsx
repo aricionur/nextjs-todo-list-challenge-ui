@@ -1,25 +1,46 @@
 import React, { useReducer, createContext, useContext } from "react"
 import jwtDecode from "jwt-decode"
 
-let token = null
-const initialState = { user: null }
+interface DecodedToken {
+  id: string
+  username: string
+  email: string
+  exp: number // Expiration time
+  // Add other properties as needed
+}
+
+let token: string | null = null
+const initialState = { user: null as DecodedToken | null }
 
 if (typeof window !== "undefined") {
   token = window.localStorage.getItem("token")
 }
 
 if (token) {
-  const decodedToken = jwtDecode(token)
-  if (decodedToken.exp * 1000 < Date.now()) window.localStorage.removeItem("token")
-  else initialState.user = decodedToken
+  try {
+    const decodedToken = jwtDecode(token) as DecodedToken // Type assertion
+
+    if (decodedToken.exp * 1000 < Date.now()) {
+      window.localStorage.removeItem("token")
+    } else {
+      initialState.user = decodedToken
+    }
+  } catch (error) {
+    console.error("Invalid token:", error)
+    window.localStorage.removeItem("token")
+  }
 }
 
-export const AuthContex = createContext({ user: null, login: userdata => {}, logout: () => {} })
+export const AuthContex = createContext({
+  user: null as DecodedToken | null,
+  login: (userdata: DecodedToken) => {},
+  logout: () => {},
+})
 
-const authReducer = (state, action) => {
+const authReducer = (state: { user: DecodedToken | null }, action: { type: string; payload?: DecodedToken }) => {
   switch (action.type) {
     case "LOGIN":
-      return { ...state, user: action.payload }
+      return { ...state, user: action.payload || null }
     case "LOGOUT":
       return { ...state, user: null }
     default:
@@ -27,11 +48,11 @@ const authReducer = (state, action) => {
   }
 }
 
-export const AuthProvider: React.FC<React.ReactNode> = ({ children }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(authReducer, initialState)
 
-  const login = userData => {
-    window.localStorage.setItem("token", userData.token)
+  const login = (userData: DecodedToken) => {
+    window.localStorage.setItem("token", JSON.stringify(userData))
     dispatch({ type: "LOGIN", payload: userData })
   }
 
@@ -45,8 +66,5 @@ export const AuthProvider: React.FC<React.ReactNode> = ({ children }) => {
 
 export const useAuth = () => {
   const { user, login, logout } = useContext(AuthContex)
-
-  // do additional things if needed.
-
   return { user, login, logout }
 }
